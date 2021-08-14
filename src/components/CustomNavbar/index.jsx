@@ -1,18 +1,25 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Container } from "react-bootstrap";
-import { bgNavbar,variant,CLASSNAME_NAV,href,hrefText } from "../../constants";
+import { customNavbarProps } from "../../constants";
+import CustomNavLink from "./CustomNavLink";
 
-const index = ({bg,variant,className,href,hrefText}) => {
-    const {textHome,textFeatures,textPricing}=hrefText;
+const index = ({
+  bg = customNavbarProps.defaults.background,
+  variant = customNavbarProps.defaults.variant,
+  navHome = customNavbarProps.defaults.navHome,
+  className = customNavbarProps.defaults.classeName,
+  links = customNavbarProps.defaults.navLinks,
+  logo=customNavbarProps.defaults.logo,
+}) => {
   return (
     <Navbar bg={bg} variant={variant}>
       <Container>
-        <Navbar.Brand href={href}>Navbar</Navbar.Brand>
+        <Navbar.Brand href={navHome}>{!logo}</Navbar.Brand>
         <Nav className={className}>
-          <Nav.Link href={href}>{textHome}</Nav.Link>
-          <Nav.Link href={href}>{textFeatures}</Nav.Link>
-          <Nav.Link href={href}>{textPricing}</Nav.Link>
+          {links.map((item) => (
+            <CustomNavLink href={item.link} text={item.text}></CustomNavLink>
+          ))}
         </Nav>
       </Container>
     </Navbar>
